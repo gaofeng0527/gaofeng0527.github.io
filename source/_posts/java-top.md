@@ -49,3 +49,22 @@ System.out.println(l1.longValue() == l2.longValue());//true
     }
 ```
 
+# GitHub保存笔记源文件20190215
+
+1.   在`hexo`下创建笔记 
+
+     >    hexo new "fileName"
+     >
+     >    hexo generate
+     >
+     >    hexo deploy 
+
+2.   在Blog目录下执行git命令把修改添加到Git仓库中
+
+     >    git add <file>
+     >
+     >    git commit -m "message"
+     >
+     >    git push -u origin master
+
+这样，换到任何环境，都不会丢失自己之前写过的笔记了（除非github不再免费存储了）
