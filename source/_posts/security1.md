@@ -137,6 +137,7 @@ public class SecurityHelloController {
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 1.该配置主要用于配置Spring-Security，因此用到的security命名空间比较多，所以把security设置为默认的命名空间，而beans需要显示配置例如：<beans:beans> -->
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
@@ -145,12 +146,23 @@ public class SecurityHelloController {
 						http://www.springframework.org/schema/security/spring-security-4.1.xsd">
 
 	<security:http auto-config="true" use-expressions="false">
+      <!-- 1.intercept-url 可以配置请求路径需要什么样的权限访问
+                1.1 pattern 配置请求路径，可以借用ant语法
+                1.2 access 配置角色权限 hasRole('USER')即ROLE_USER，多个的话可以用逗号隔开
+                1.3 method 可以配置对什么类型的请求进行拦截
+                1.4 可以在http标签下配置多个intercept-url
+             这句话的意思是：拦截所有GET请求，并验证用户身份，只允许拥有USER角色的用户通过
+         -->
 		<security:intercept-url pattern="/home/se/admin" access="ROLE_ADMIN"/>
 	</security:http>
 	<security:authentication-manager>
 		<security:authentication-provider>
 			<security:user-service>
-				<security:user name="zhanggaofeng" password="zhanggaofeng" authorities="ROLE_ADMIN"/>
+              <!--
+                    1.默认把用户信息配置到内存中
+                    2.密码以{noop}为前缀，表示DelegatingPasswordEncode，大概意思就是用明文的方式，方便测试阅读
+                -->
+				<security:user name="zhanggaofeng" password="{noop}zhanggaofeng" authorities="ROLE_ADMIN"/>
 			</security:user-service>
 		</security:authentication-provider>
 	</security:authentication-manager>
