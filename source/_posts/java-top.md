@@ -68,3 +68,11 @@ System.out.println(l1.longValue() == l2.longValue());//true
      >    git push -u origin master
 
 这样，换到任何环境，都不会丢失自己之前写过的笔记了（除非github不再免费存储了）
+
+# idea 本地Debugger 20190221
+
+1.   在idea操作页面 Run-->Edit-configurations-->点击左上角的+号--->在弹出的页面中选中Remote（开启远程监听）
+2.   Name 输入一个名称；setting都默认就好；Host 输入要测试的服务器ID，本地的话默认就好；Port 测试监听的端口，本地默认；Search sources using module's classpath 选中要测试的代码路径；jvm默认：-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005
+3.   启动测试的服务
+4.   启动远程监听
+5.   在需要调试的地方加上断点，即可进行断点调试了 
