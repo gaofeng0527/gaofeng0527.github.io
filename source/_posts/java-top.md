@@ -76,3 +76,116 @@ System.out.println(l1.longValue() == l2.longValue());//true
 3.   启动测试的服务
 4.   启动远程监听
 5.   在需要调试的地方加上断点，即可进行断点调试了 
+
+# JAVA 解析XML
+
+参考[XML解析——Java中XML的四种解析方式](https://www.cnblogs.com/longqingyang/p/5577937.html)
+
+# JAVA 解析 HTML
+
+导入需要的jar
+
+``` gradle
+compile('org.jsoup:jsoup:1.11.3')
+```
+
+```java
+/**
+     * 根据HTMl解析题目的内容
+     *
+     * @param content
+     * @return
+     */
+    private Map<String, Object> getQuestionByHtml(String content) {
+        org.jsoup.nodes.Document dom = Jsoup.parse(content);
+
+        //获取最外层信息（题目ID，知识点编码）根据样式属性获取
+        Elements elements = dom.select("div.popup-questions");
+        String knowID = "";
+        String questionID = "";
+        if (null != elements && elements.size() > 0) {
+            Element element = elements.get(0);
+            knowID = element.attr("knowid");//获取属性的值
+            questionID = element.attr("id");
+        }
+
+        //获取题目配置信息
+        Elements qelements = dom.select("div.question");
+        String code = "";
+        String type = "";
+        String answer = "";
+        String score = "";
+        if (null != qelements && qelements.size() > 0) {
+            Element qelement = qelements.get(0);
+            code = qelement.attr("code");
+            type = qelement.attr("type");
+            answer = qelement.attr("answer");
+            score = qelement.attr("score");
+        }
+
+        //获取题干
+        Elements titles = dom.select("p.label");
+        String title = "";
+        if (null != titles && titles.size() > 0) {
+            title = titles.get(0).html();
+        }
+
+        //答案解析
+        String analysis = "";
+        Elements eanalysis = dom.select("p.label");
+        if (null != eanalysis && eanalysis.size() > 0) {
+            analysis = eanalysis.get(0).html();
+        }
+
+        //解析选项
+        Elements options = dom.getElementsByTag("li");
+        Map<String, String> optionMap = new HashMap<>();
+        for (Element option : options) {
+            optionMap.put(option.attr("code"), option.html());
+        }
+        //组装
+        Map<String, Object> result = new HashMap<>();
+        Map<String, Object> question = new HashMap<>();
+        question.put("id", questionID);
+        question.put("code", code);
+        question.put("type", type);
+        question.put("answer", answer);
+        question.put("score", score);
+        question.put("title", title);
+        question.put("knowid", knowID);
+        question.put("options", optionMap);
+        question.put("analysis", analysis);
+        result.put(knowID, question);
+        return result;
+    }
+```
+
+# JAVA处理HTML时，去掉标签内部的属性20190315
+
+```java
+	private static final String regEx_tag = "<(\\w[^>|\\s]*)[\\s\\S]*?>";
+
+    public static String removeEleProp(String htmlStr) {
+        Pattern p = Pattern.compile(regEx_tag, Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(htmlStr);
+        StringBuffer sb = new StringBuffer();
+        while (m.find()) {
+            String tagWithProp= m.group(0);
+            String tag =m.group(1);
+            if ("img".equals(tag)) {
+                //img标签保留属性，可进一步处理删除无用属性，仅保留src等必要属性
+                m.appendReplacement(sb, tagWithProp);
+            }else if ("a".equals(tag)) {
+                //a标签保留属性，可进一步处理删除无用属性，仅保留href等必要属性
+                m.appendReplacement(sb, tagWithProp);
+            }else{
+                m.appendReplacement(sb, "<" + tag + ">");
+            }
+        }
+        m.appendTail(sb);
+        return sb.toString();
+    }
+```
+
+
+
