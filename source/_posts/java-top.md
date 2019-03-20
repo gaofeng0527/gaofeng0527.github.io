@@ -187,5 +187,13 @@ compile('org.jsoup:jsoup:1.11.3')
     }
 ```
 
+# eclipse+tomcat远程调试20190319
+
+tomcat 默认提供8000为测试端口
+
+使用命令：./catalina.sh jpda start   启动服务
+
+在eclipse中创建远程监听，就可以进行远程断点调试了。
+
 
 
