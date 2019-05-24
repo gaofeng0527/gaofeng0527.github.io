@@ -126,5 +126,4 @@ downLoadEvent:下载文件事件，注意，返回有两个数据：文件的ID�
 
 # 后台部分
 
-后台使用springmvc，参考[springmvc文件上传](fileUpload.md)
-
+后台使用springmvc，参考[springmvc文件上传下载](/fileUpload)
