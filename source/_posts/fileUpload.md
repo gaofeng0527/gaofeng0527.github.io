@@ -1,5 +1,5 @@
 ---
-title: springmvc文件上传
+title: springmvc文件上传、下载
 date: 2017-11-30 15:28:33
 tags: [springmvc]
 ---
@@ -57,7 +57,7 @@ tags: [springmvc]
 </html>
 ```
 
-这里如果想上传多个文件的话，只需要多放几个*<input type="file" name="file">*
+这里如果想上传多个文件的话，只需要多放几个`<input type="file" name="file">`
 
 ## controller
 
@@ -185,3 +185,105 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 ```
 
 运行，搞定
+
+>    上述的代码虽然可以成功将文件上传到服务器上面的指定目录当中，但是文件上传功能有许多需要注意的小细节问题，以下列出的几点需要特别注意的：
+>
+>    　　（1）、为保证服务器安全，上传文件应该放在外界无法直接访问的目录下，比如放于WEB-INF目录下。
+>
+>    　　（2）、为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名。
+>
+>    　　（3）、为防止一个目录下面出现太多文件，要使用hash算法打散存储。
+>
+>    　　（4）、要限制上传文件的最大值。
+>
+>    　　（5）、要限制上传文件的类型，在收到上传文件名时，判断后缀名是否合法。
+
+# 文件下载
+
+## ResponseEntity`<byte[]>`方式
+
+```java
+	@RequestMapping("/download-file")
+	public ResponseEntity<byte[]> downLoadFile(@RequestParam("filePath") String filePath, @RequestParam("oldName") String oldName) {
+		byte[] body = null;
+		File file = new File(filePath);
+		// 获取文件
+		InputStream is;
+		try {
+			is = new FileInputStream(file);
+			body = new byte[is.available()];
+			is.read(body);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		HttpHeaders headers = new HttpHeaders();
+		// 设置文件类型
+		headers.add("Content-Disposition", "attchement;filename=" + oldName);
+		// 设置Http状态码
+		HttpStatus statusCode = HttpStatus.OK;
+		// 返回数据
+		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+		return entity;
+	}
+```
+
+## 传统模式
+
+```java
+	@RequestMapping("/download")
+	@ResponseBody
+	public void downloadCert(HttpServletRequest request, HttpServletResponse response)
+			throws IOException {
+		//得到要下载的文件名
+         String fileName = request.getParameter("filename");
+         fileName = new String(fileName.getBytes("iso8859-1"),"UTF-8");
+         //假设上传的文件都是保存在/WEB-INF/upload目录下的子目录当中
+         String fileSaveRootPath=this.getServletContext().getRealPath("/WEB-INF/upload");
+         //处理文件名
+         String realname = fileName.substring(fileName.indexOf("_")+1);
+         //通过文件名找出文件的所在目录
+         String path = findFileSavePathByFileName(fileName,fileSaveRootPath);
+         //得到要下载的文件
+         File file = new File(path+File.separator+fileName);
+         //如果文件不存在
+         if(!file.exists()){
+             request.setAttribute("message", "您要下载的资源已被删除！！");
+             request.getRequestDispatcher("/message.jsp").forward(request, response);
+             return;
+         }
+         
+          //设置响应头，控制浏览器下载该文件
+          response.setHeader("content-disposition", "attachment;filename=" + URLEncoder.encode(realname, "UTF-8"));
+          //读取要下载的文件，保存到文件输入流
+          FileInputStream fis = new FileInputStream(path + File.separator + fileName);
+          //创建输出流
+          OutputStream fos = response.getOutputStream();
+          //设置缓存区
+          ByteBuffer buffer = ByteBuffer.allocate(1024);
+          //输入通道
+          FileChannel readChannel = fis.getChannel();
+          //输出通道
+          FileChannel writeChannel = ((FileOutputStream)fos).getChannel();
+          while(true){
+              buffer.clear();
+              int len = readChannel.read(buffer);//读入数据
+              if(len < 0){
+                  break;//传输结束
+              }
+              buffer.flip();
+              writeChannel.write(buffer);//写入数据
+          }
+          //关闭输入流
+          fis.close();
+          //关闭输出流
+          fos.close();
+	}
+```
+
+[参考](https://www.cnblogs.com/lcngu/p/5471610.html)
+
