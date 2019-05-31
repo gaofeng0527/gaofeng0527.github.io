@@ -110,7 +110,6 @@ public class PersonController {
 	}
 
 }
-
 ```
 
 启动运行，没问题
@@ -122,6 +121,32 @@ public class PersonController {
 >    file
 >    121780292
 >    方法的运行时间：83ms
+
+----20190529 更新
+
+>    有些场景当文件上传后需要返回一个文件访问连接，在前端页面生成下载按钮。就需要后台服务器把文件上传后，拼接一个URL，需要考虑如果文件名有中文，或者特殊字符，返回到前端就可能会出现问题。因此需要使用URLEncode.encode();方法对中文名字进行转码
+
+```java
+	RequestMapping(value = "/upload-file", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, String> uploadFile(@RequestParam("file") MultipartFile file) throws UnsupportedEncodingException {
+		Map<String, String> result = new HashMap<String, String>();
+		String oldName = file.getOriginalFilename();
+		String fileName = saveFile(file);
+		if (!StringUtils.hasText(fileName)) {
+			result.put("message", "文件上传失败");
+		}
+
+		String srcStr = "<a target='_blank' href='" + this.getCtxPath()
+				+ "/home/student/course/exam/download-file?filePath=" + fileName + "&oldName=" + URLEncoder.encode(oldName,"utf-8") + "'>"
+				+ oldName + "</a>";
+		result.put("oldName", oldName);
+		result.put("location", srcStr);
+		return result;
+	}
+```
+
+
 
 # 文件上传出现异常的时候
 
@@ -285,5 +310,24 @@ public class ExceptionHandler implements HandlerExceptionResolver {
 	}
 ```
 
-[参考](https://www.cnblogs.com/lcngu/p/5471610.html)
+----20190529更新
+
+>    下载文件名为中文时，会出现乱码问题，需要设置`response.setCharacterEncoding("utf-8");` 和对中文名字进行encode编码
+
+```java
+	@RequestMapping("/download-file")
+	public void downLoadFile(@RequestParam("filePath") String filePath,
+			@RequestParam("oldName") String oldName,HttpServletResponse response) throws IOException {
+		response.setCharacterEncoding("utf-8");
+		response.setContentType("application/octet-stream");
+		response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(oldName,"utf-8"));
+		OutputStream out = response.getOutputStream();
+		InputStream in = uploadService.readFile(filePath);
+		FileCopyUtils.copy(in, out);
+		in.close();
+		out.close();
+	}
+```
+
+[参考《java文件上传和下载》](https://www.cnblogs.com/lcngu/p/5471610.html)
 
