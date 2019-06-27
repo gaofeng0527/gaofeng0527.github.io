@@ -195,5 +195,76 @@ tomcat 默认提供8000为测试端口
 
 在eclipse中创建远程监听，就可以进行远程断点调试了。
 
+# List遍历过程中操作List中的元素20190627
 
+如下代码：
 
+```java
+List<String> names = new ArrayList<>();
+names.add("张三");
+names.add("李四");
+names.add("王五");
+names.add("张二麻子");
+/**
+* 1.抛出java.util.ConcurrentModificationException
+* 是因为在移除list中的元素时，list的长度也跟着变化，因此继续访问的话，就会数组越界了
+*
+*/
+for (String name : names) {
+	if("李四".equals(name)){
+    	names.remove(name);
+    }
+}
+```
+
+正确做法：
+
+```java
+		Iterator<String> is = names.iterator();
+        while (is.hasNext()){
+            if("李四".equals(is.next())){
+                is.remove();
+            }
+        }
+```
+
+另外`ListIterator`对象提供了`hasPrevious()`方法可以判断前面是否还有元素。因此用这个迭代器可以逆向遍历集合。
+
+# List快速去重20190627
+
+大家都知道List是有序的可重复的单列列表集合。那么如何快速去重呢。想一想set的集合的特性，无序的不可重复的单项列表集合。
+
+>    集合的有序无序指的是，这里的有序和无序不是指集合中的排序，而是是否按照元素添加的顺序来存储对象。
+
+```java
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("e");
+        list.add("c");
+        list.add("d");
+        list.add("c");
+        list.add("a");
+        Set<String> set = new TreeSet<>();
+        set.addAll(list);
+        System.out.println(set);//[a, c, d, e]
+```
+
+>    1.   `ArrayList`集合查询元素效率较高
+>    2.   `LinkedList`因为是连表形式的数据结构，因此添加，修改，删除效率比较高。
+>    3.   `ArrayList`、`LinkedList`都是非线程安全的；`Vector`线程安全的
+
+# Set判断是否重复的原理
+
+在`Set`集合掉用`add`存储元素的时候，会判断`hash`值和`equals`都相同的情况下，才算是重复元素。因此如果存储自定义引用类型的元素时，要确保不重复的话，需要重写`hashCode`和`equals`方法。
+
+`HashSet` 无序不可重复的集合。`LinkedHashSet`是`HashSet`的子类，区别是，`LinkedHashSet`是有序的
+
+# TreeSet
+
+`TreeSet`集合内部的值是自动排序的。如果自定义引用类型，想进行排序的话，需要实现`Comparble`接口并实现`comparTo`方法。
+
+`TreeSet`集合的元素必须实现`Comparble`接口
+
+`TreeSet`不允许存储`null`值
+
+不是线程安全的
