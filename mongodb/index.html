@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>初识MongoDB | 冰人</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="MongoDB非关系型数据库；分布式文档存储数据库。内容大部分以json的格式存储 在MongoDB中基本概念是 文档（document）、集合(collection)、数据库(database)、数据字段\域（field） 一个MongoDB中可以创建多个数据库 admin： 从权限的角度来看，这是”root”数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服">
+<meta name="keywords" content="mongoDB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="初识MongoDB">
+<meta property="og:url" content="http://yoursite.com/mongodb/index.html">
+<meta property="og:site_name" content="冰人">
+<meta property="og:description" content="MongoDB非关系型数据库；分布式文档存储数据库。内容大部分以json的格式存储 在MongoDB中基本概念是 文档（document）、集合(collection)、数据库(database)、数据字段\域（field） 一个MongoDB中可以创建多个数据库 admin： 从权限的角度来看，这是”root”数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-10-18T09:49:21.459Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="初识MongoDB">
+<meta name="twitter:description" content="MongoDB非关系型数据库；分布式文档存储数据库。内容大部分以json的格式存储 在MongoDB中基本概念是 文档（document）、集合(collection)、数据库(database)、数据字段\域（field） 一个MongoDB中可以创建多个数据库 admin： 从权限的角度来看，这是”root”数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服">
+  
+    <link rel="alternative" href="/atom.xml" title="冰人" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <script src="//7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+  <script src="//cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("yznK3c35NMmx90GBjFvTGjtD-gzGzoHsz", "UYoNDfxd8etDlH7unRWGYNsa");</script>
+</head>
+</html>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img src="/img/dog.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/sitemap">冰人</a></h1>
+		</hgroup>
+
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-ribbon" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						<div class="icon-wrap icon-house hide" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>Tags</li>
+						<li>Menu</li>
+						
+						<li>Links</li>
+						
+						
+						<li>About</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				
+				<section class="switch-part switch-part1">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Index/" style="font-size: 10px;">Index</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javaweb/" style="font-size: 16.67px;">javaweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 16.67px;">security</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 20px;">springmvc</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/thymeleaf/" style="font-size: 16.67px;">thymeleaf</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a>
+					</div>
+				</section>
+				
+
+				<section class="switch-part switch-part2">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://autumnt.github.io">小韧韧</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://xtuer.github.io/">彪哥</a>
+			        
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://qtdebug.com/">黄彪</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+				
+				<section class="switch-part switch-part4">
+				
+					<div id="js-aboutme">天地不仁，以万物为刍狗；圣人不仁，以百姓为刍狗。天地之间，其犹橐籥乎？虚而不淈，动而愈出。多言数穷，不若守于中。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">冰人</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img src="/img/dog.jpg" class="js-avatar" style="width: 100%;height: 100%;opacity: 1;">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">冰人</h1>
+			</hgroup>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+        
+            <span id="access-counter"></span>
+            <a href="javascript: void(0)" id="toc-button">列表</a>
+            <div style="display:none"><a href="/mongodb/" class="article-date">
+  	<time datetime="2019-03-15T08:41:33.000Z" itemprop="datePublished">2019-03-15</time>
+</a></div>
+        
+
+        
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      初识MongoDB
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongoDB/">mongoDB</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+        <div id="toc" class="article-toc" style="display: none;">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#MongoDB"><span class="toc-number">1.</span> <span class="toc-text">MongoDB</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#下载"><span class="toc-number">2.</span> <span class="toc-text">下载</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-number">3.</span> <span class="toc-text">安装</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#运行"><span class="toc-number">4.</span> <span class="toc-text">运行</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#使用MongoDB"><span class="toc-number">5.</span> <span class="toc-text">使用MongoDB</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常用命令"><span class="toc-number">5.1.</span> <span class="toc-text">常用命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#创建-amp-新增"><span class="toc-number">5.2.</span> <span class="toc-text">创建 &amp; 新增</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#更新"><span class="toc-number">6.</span> <span class="toc-text">更新</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#删除"><span class="toc-number">7.</span> <span class="toc-text">删除</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#查询"><span class="toc-number">8.</span> <span class="toc-text">查询</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#and查询"><span class="toc-number">8.1.</span> <span class="toc-text">and查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#or查询"><span class="toc-number">8.2.</span> <span class="toc-text">or查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#and-和-or-联合查询"><span class="toc-number">8.3.</span> <span class="toc-text">and 和 or 联合查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#type-查询操作符"><span class="toc-number">8.4.</span> <span class="toc-text">$type 查询操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#limit-和-skip-实现分页查询"><span class="toc-number">8.5.</span> <span class="toc-text">limit() 和 skip()实现分页查询</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sort-排序"><span class="toc-number">8.6.</span> <span class="toc-text">sort()排序</span></a></li></ol></li></ol>
+          <!-- <hr/> -->
+        </div>
+        
+        <h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>非关系型数据库；分布式文档存储数据库。内容大部分以json的格式存储</p>
+<p>在<code>MongoDB</code>中基本概念是 文档（document）、集合(collection)、数据库(database)、数据字段\域（field）</p>
+<p>一个<code>MongoDB</code>中可以创建多个数据库</p>
+<p>admin： 从权限的角度来看，这是”root”数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器。<br>local: 这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合<br>config: 当Mongo用于分片设置时，config数据库在内部使用，用于保存分片的相关信息。</p>
+<p>MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</p>
+<a id="more"></a>
+<h1 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h1><p>windows 下载地址：<a href="https://www.mongodb.com/download-center/community?jmp=docs" target="_blank" rel="noopener">https://www.mongodb.com/download-center/community?jmp=docs</a></p>
+<p>选择对应的系统版本和安装方式，点击下载即可</p>
+<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><ol>
+<li>点击安装文件，一路next</li>
+<li>在安装过程中，可以设置db存储路径和日志输出路径</li>
+<li>不要勾选<code>Install MongoDB Compass</code>，因为会联网安装，在国内的话，还是省省吧</li>
+<li>最后点击<code>Install</code>等着就行了</li>
+</ol>
+<blockquote>
+<p>   我当时安装完，去在安装页面设置的路径中查找我刚安装的MongoDB，结果一脸懵逼，这里只有看其他教程需要手动创建的db和log文件夹，bin文件目录呢？？？</p>
+<p>   试想，会不会给我装到C盘了，一看果然如此，在C盘的<code>Program Files</code>目录下。安装时没认真看选择路径，就先放这里吧</p>
+</blockquote>
+<blockquote>
+<p>   后来看了官方文档，当前版本4.0 是可以选择以服务形式安装，就会默认创建好<code>mongod.cfg</code>配置文件。并默认安装到C盘。</p>
+<p>   并且会默认创建一个<code>MongoDB</code>的服务，等安装成功后会自动启动。</p>
+</blockquote>
+<h1 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h1><p>因为前面我们选择了自动安装服务的模式，因此可以去bin目录下直接运行<code>mongo.exe</code></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">MongoDB shell version v4.0.6</span><br><span class="line">connecting to: mongodb://127.0.0.1:27017/?gssapiServiceName=mongodb</span><br><span class="line">Implicit session: session &#123; "id" : UUID("4b452b86-6bff-4780-9920-286b6f1114dc") &#125;</span><br><span class="line">MongoDB server version: 4.0.6</span><br><span class="line">Welcome to the MongoDB shell.</span><br><span class="line">For interactive help, type "help".</span><br><span class="line">For more comprehensive documentation, see</span><br><span class="line">        http://docs.mongodb.org/</span><br><span class="line">Questions? Try the support group</span><br><span class="line">        http://groups.google.com/group/mongodb-user</span><br><span class="line">Server has startup warnings:</span><br><span class="line">2019-03-15T16:51:40.440+0800 I CONTROL  [initandlisten]</span><br><span class="line">2019-03-15T16:51:40.440+0800 I CONTROL  [initandlisten] ** WARNING: Access control is not enabled for the database.</span><br><span class="line">2019-03-15T16:51:40.440+0800 I CONTROL  [initandlisten] **          Read and write access to data and configuration is unrestricted.</span><br><span class="line">2019-03-15T16:51:40.440+0800 I CONTROL  [initandlisten]</span><br><span class="line">---</span><br><span class="line">Enable MongoDB's free cloud-based monitoring service, which will then receive and display</span><br><span class="line">metrics about your deployment (disk utilization, CPU, operation statistics, etc).</span><br><span class="line"></span><br><span class="line">The monitoring data will be available on a MongoDB website with a unique URL accessible to you</span><br><span class="line">and anyone you share the URL with. MongoDB may use this information to make product</span><br><span class="line">improvements and to suggest MongoDB products and deployment options to you.</span><br><span class="line"></span><br><span class="line">To enable free monitoring, run the following command: db.enableFreeMonitoring()</span><br><span class="line">To permanently disable this reminder, run the following command: db.disableFreeMonitoring()</span><br><span class="line">---</span><br></pre></td></tr></table></figure>
+<p>启动成功。</p>
+<p>或者在浏览器中输入<code>localhost:27017</code> 页面显示</p>
+<p><code>It looks like you are trying to access MongoDB over HTTP on the native driver port.</code></p>
+<p>也表示启动成功</p>
+<h1 id="使用MongoDB"><a href="#使用MongoDB" class="headerlink" title="使用MongoDB"></a>使用MongoDB</h1><h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><ol>
+<li>show dbs    显示数据库列表</li>
+<li>user dbname 进入某个库</li>
+<li>show collections   显示集合列表（关系型数据库中的表）</li>
+<li>help 查看MongoDB支持哪些命令</li>
+<li>db.help() 查看当前数据库支持哪些方法</li>
+</ol>
+<h2 id="创建-amp-新增"><a href="#创建-amp-新增" class="headerlink" title="创建 &amp; 新增"></a>创建 &amp; 新增</h2><p>数据库方面操作</p>
+<ol>
+<li>use db_name  切换数据库，如果不存在则自动创建</li>
+<li>db.getName() 查看当前数据库名字 可以简写：<code>db</code></li>
+<li>db.stats() 查看当前数据库状态，包括名字，有多少个集合等</li>
+<li>db.dropDatabase() 删除当前数据库</li>
+</ol>
+<p>集合操作</p>
+<ol>
+<li><p>db.createCollection(‘collection_name’)  创建集合</p>
+<p>| 字段          |  类型  | 描述                                       |<br>| ———– | :–: | —————————————- |<br>| capped      |  布尔  | （可选）如果为 true，则创建固定集合。固定集合是指有着固定大小的集合，当达到最大值时，它会自动覆盖最早的文档。<strong>当该值为 true 时，必须指定 size 参数。</strong> |<br>| autoIndexId |  布尔  | （可选）如为 true，自动在 _id 字段创建索引。默认为 false。    |<br>| size        |  数值  | （可选）为固定集合指定一个最大值（以字节计）。<strong>如果 capped 为 true，也需要指定该字段。</strong> |<br>| max         |  数值  | （可选）指定固定集合中包含文档的最大数量。                    |</p>
+<blockquote>
+<p>相当于关系型数据库中创建表</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;db.createCollection("mycol",&#123;capped:true,autoIndexId:true,size:6142800,max:1000&#125;)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+</li>
+<li><p>db.col.insert() 向集合中添加内容，如果集合不存在，会自动创建</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.user.insert(&#123;uname:"gaofeng"&#125;) -- 添加一个名为user的集合，并添加一条数据</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>db.col.drop()  可以删除集合</p>
+</li>
+</ol>
+<p>插入一条数据</p>
+<ol>
+<li>db.col.insert({username:”gaofeng”,age:25,address:”北京”})  插入一条数据</li>
+<li>也可以声明一个对象：</li>
+</ol>
+<blockquote>
+   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;    users = &#123;uname:"lisi",age:25,address:"beijing"&#125;</span><br><span class="line">&gt;    users   -- 再次输入可以查看</span><br><span class="line">&gt;    &#123; "uname" : "lisi", "age" : 25, "address" : "beijing" &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>   db.col.insert(users) 进行插入</p>
+<p>   db.col.save(users) 也可以进行插入，当提供objectId的时候，就是更新操作了</p>
+</blockquote>
+<h1 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h1><p>update() 和 save() 方法都可以完成更新操作</p>
+<ol>
+<li>db.col.update(<code>&lt;query&gt;</code>,<code>&lt;update&gt;</code>,{upsert:<code>&lt;boolean&gt;</code>,multi:<code>&lt;boolean&gt;</code>,writeConcern:<code>&lt;document&gt;</code>})</li>
+</ol>
+<blockquote>
+<p>   query : update的查询条件，例如要查询uname为gaofeng的，这里可以直接写{uname:”gaofeng”}</p>
+<p>   update : update的对象和一些更新的操作符，对应sql中set后面的内容</p>
+<p>   upsert : 可选，表示如果不存在更新的内容，是否插入新的文档，true为插入，false不插入，默认为false</p>
+<p>   multi : 可选，默认为false，只更新找到的第一条，如果设置为true，则更新所有符合条件的记录</p>
+<p>   writeConcern : 可选，抛出异常的级别</p>
+   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&gt;    &gt; db.user.update(&#123;uname:"gaofeng"&#125;,&#123;$set:&#123;age:15&#125;&#125;,&#123;multi:true&#125;)</span><br><span class="line">&gt;    WriteResult(&#123; "nMatched" : 2, "nUpserted" : 0, "nModified" : 2 &#125;)</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+<p>   更新了两条记录</p>
+</blockquote>
+<ol start="2">
+<li><p>db.col.save(<code>&lt;document&gt;</code>,writeConcern:<code>&lt;document&gt;</code>)</p>
+<p>前面介绍过，save一条数据时，如果带有objectId值，并且该值在集合中存在，就会自动执行更新操作。如果没有，则执行插入操作。</p>
+</li>
+</ol>
+<h1 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h1><p>删除使用<code>db.col.remove()</code></p>
+<blockquote>
+<p>   语法：db.col.remove(<code>&lt;query&gt;</code>,{justOne:<code>&lt;boolean&gt;</code>,writeConcern:<code>&lt;document&gt;</code>})</p>
+<p>   query: 可选，删除的赛选条件，相当于sql中where后面的内容</p>
+<p>   justOne：可选，如果为true或1，则只删除符合条件的第一条文档，反之删除所有，默认为false；</p>
+</blockquote>
+<p>实例：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.col.remove(&#123;uname:'gaofeng'&#125;,&#123;justOne:true&#125;)  //删除名字为gaofeng的第一条文档</span><br><span class="line"></span><br><span class="line">db.col.remove(&#123;&#125;)   //删除所有数据</span><br></pre></td></tr></table></figure>
+<h1 id="查询"><a href="#查询" class="headerlink" title="查询"></a>查询</h1><p>语法：</p>
+<blockquote>
+<p>   db.col.find(query,projection)</p>
+<p>   query : 可选，查询条件</p>
+<p>   projection ： 使用投影操作符指定返回的键，如果要返回所有键值，忽略这个参数</p>
+<p>   db.col.find().pretty() 可以格式化显示查询结果</p>
+   <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;    &gt; db.user.find(&#123;uname:'gaofeng'&#125;).pretty()</span><br><span class="line">&gt;    &#123;</span><br><span class="line">&gt;            "_id" : ObjectId("5c8b716e4a5c57c4ada08ab6"),</span><br><span class="line">&gt;            "uname" : "gaofeng",</span><br><span class="line">&gt;            "age" : 15</span><br><span class="line">&gt;    &#125;</span><br><span class="line">&gt;    &#123;</span><br><span class="line">&gt;            "_id" : ObjectId("5c8b72bf4a5c57c4ada08ab8"),</span><br><span class="line">&gt;            "uname" : "gaofeng",</span><br><span class="line">&gt;            "age" : 15</span><br><span class="line">&gt;    &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<blockquote>
+</blockquote>
+<p>MongoDB 于 SQL中的语法比较</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>格式</th>
+<th>范例</th>
+<th>RDBMS中的类似语句</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>等于</td>
+<td><code>{:</code>}</td>
+<td><code>db.col.find({&quot;by&quot;:&quot;菜鸟教程&quot;}).pretty()</code></td>
+<td><code>where by = &#39;菜鸟教程&#39;</code></td>
+</tr>
+<tr>
+<td>小于</td>
+<td><code>{:{$lt:}}</code></td>
+<td><code>db.col.find({&quot;likes&quot;:{$lt:50}}).pretty()</code></td>
+<td><code>where likes &lt; 50</code></td>
+</tr>
+<tr>
+<td>小于或等于</td>
+<td><code>{:{$lte:}}</code></td>
+<td><code>db.col.find({&quot;likes&quot;:{$lte:50}}).pretty()</code></td>
+<td><code>where likes &lt;= 50</code></td>
+</tr>
+<tr>
+<td>大于</td>
+<td><code>{:{$gt:}}</code></td>
+<td><code>db.col.find({&quot;likes&quot;:{$gt:50}}).pretty()</code></td>
+<td><code>where likes &gt; 50</code></td>
+</tr>
+<tr>
+<td>大于或等于</td>
+<td><code>{:{$gte:}}</code></td>
+<td><code>db.col.find({&quot;likes&quot;:{$gte:50}}).pretty()</code></td>
+<td><code>where likes &gt;= 50</code></td>
+</tr>
+<tr>
+<td>不等于</td>
+<td><code>{:{$ne:}}</code></td>
+<td><code>db.col.find({&quot;likes&quot;:{$ne:50}}).pretty()</code></td>
+<td><code>where likes != 50</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="and查询"><a href="#and查询" class="headerlink" title="and查询"></a>and查询</h2><p>当需要以多个键值对为条件查询时，默认使用and关系查询</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.user.find(&#123;uname:'gaofeng',age:15&#125;).pretty()</span><br><span class="line">&#123;</span><br><span class="line">        <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72bf4a5c57c4ada08ab8"</span>),</span><br><span class="line">        <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>,</span><br><span class="line">        <span class="attr">"age"</span> : <span class="number">15</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//类似于SQL中的：where uname = 'gaofeng' and age = 15</span><br></pre></td></tr></table></figure>
+<h2 id="or查询"><a href="#or查询" class="headerlink" title="or查询"></a>or查询</h2><p>使用$or关键字，后面跟条件数组</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.user.find(&#123;$or:[&#123;uname:'zhangsan'&#125;,&#123;age:15&#125;]&#125;).pretty()</span><br><span class="line">&#123;</span><br><span class="line">        <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72bf4a5c57c4ada08ab8"</span>),</span><br><span class="line">        <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>,</span><br><span class="line">        <span class="attr">"age"</span> : <span class="number">15</span></span><br><span class="line">&#125;</span><br><span class="line">&#123;</span><br><span class="line">        <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8f66974a5c57c4ada08aba"</span>),</span><br><span class="line">        <span class="attr">"uname"</span> : <span class="string">"zhangsan"</span>,</span><br><span class="line">        <span class="attr">"age"</span> : <span class="number">25</span>,</span><br><span class="line">        <span class="attr">"address"</span> : <span class="string">"beijing"</span></span><br><span class="line">&#125;</span><br><span class="line">//类似于SQL中的： where uname = 'zhangsan' or age = 15</span><br></pre></td></tr></table></figure>
+<h2 id="and-和-or-联合查询"><a href="#and-和-or-联合查询" class="headerlink" title="and 和 or 联合查询"></a>and 和 or 联合查询</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.user.find(&#123;age:&#123;$gt:15&#125;,$or:[&#123;uname:'zhangsan'&#125;,&#123;address:'beijing'&#125;]&#125;).pretty()</span><br><span class="line">&#123;</span><br><span class="line">        <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8f66974a5c57c4ada08aba"</span>),</span><br><span class="line">        <span class="attr">"uname"</span> : <span class="string">"zhangsan"</span>,</span><br><span class="line">        <span class="attr">"age"</span> : <span class="number">25</span>,</span><br><span class="line">        <span class="attr">"address"</span> : <span class="string">"beijing"</span></span><br><span class="line">&#125;</span><br><span class="line">// where age &gt; 15 and (uname = 'zhangsan' or address = 'beijing')</span><br></pre></td></tr></table></figure>
+<h2 id="type-查询操作符"><a href="#type-查询操作符" class="headerlink" title="$type 查询操作符"></a>$type 查询操作符</h2><p>在mongoDB的集合中，一个键可以对应多种类型的数据，例如：uname可以是代号12345，也可以是字符串<code>gaofeng</code>。那么我们想查询uname的值为字符串的文档，怎么查询呢，就使用到了$type</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.user.update(&#123;uname:'zhangsan'&#125;,&#123;$set:&#123;age:'25'&#125;&#125;)   //先把名字为zhangsan的年龄改为字符串</span><br><span class="line">WriteResult(&#123; "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 &#125;)</span><br><span class="line">&gt; db.user.find(&#123;age:&#123;$type:'string'&#125;&#125;).pretty()  //查询年龄值为字符串类型的所有文档</span><br><span class="line">&#123;</span><br><span class="line">        <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8f66974a5c57c4ada08aba"</span>),</span><br><span class="line">        <span class="attr">"uname"</span> : <span class="string">"zhangsan"</span>,</span><br><span class="line">        <span class="attr">"age"</span> : <span class="string">"25"</span>,</span><br><span class="line">        <span class="attr">"address"</span> : <span class="string">"beijing"</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="limit-和-skip-实现分页查询"><a href="#limit-和-skip-实现分页查询" class="headerlink" title="limit() 和 skip()实现分页查询"></a>limit() 和 skip()实现分页查询</h2><p>db.col.find().limit(NUMBER)，其中NUMBER参数表示要查询多少条数据</p>
+<p>db.col.find().limit(NUMBER).skip(COUNT)，skip()方法表示跳过多少条数据</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.user.find()   //查询所有</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b716e4a5c57c4ada08ab6"</span>), <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>, <span class="attr">"age"</span> : <span class="number">28</span>, <span class="attr">"address"</span> : <span class="string">"shanghai"</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72a74a5c57c4ada08ab7"</span>) &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72bf4a5c57c4ada08ab8"</span>), <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>, <span class="attr">"age"</span> : <span class="number">15</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8effca4a5c57c4ada08ab9"</span>), <span class="attr">"user"</span> : <span class="string">"xiaoming"</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8f66974a5c57c4ada08aba"</span>), <span class="attr">"uname"</span> : <span class="string">"zhangsan"</span>, <span class="attr">"age"</span> : <span class="string">"25"</span>, <span class="attr">"address"</span> : <span class="string">"beijing"</span> &#125;</span><br><span class="line">&gt; db.user.find().limit(2) //查询两条数据</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b716e4a5c57c4ada08ab6"</span>), <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>, <span class="attr">"age"</span> : <span class="number">28</span>, <span class="attr">"address"</span> : <span class="string">"shanghai"</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72a74a5c57c4ada08ab7"</span>) &#125;</span><br><span class="line">//假如每页2条数据，我想查询第二页的数据，也就是当前页-1*2，这是要跳过的条数</span><br><span class="line">&gt; db.user.find().limit(2).skip(2)</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72bf4a5c57c4ada08ab8"</span>), <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>, <span class="attr">"age"</span> : <span class="number">15</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8effca4a5c57c4ada08ab9"</span>), <span class="attr">"user"</span> : <span class="string">"xiaoming"</span> &#125;</span><br><span class="line">&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="sort-排序"><a href="#sort-排序" class="headerlink" title="sort()排序"></a>sort()排序</h2><p>1 表示升序  ，-1 表示降序</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&gt; db.user.update(&#123;age:&#123;$type:'string'&#125;&#125;,&#123;$set:&#123;age:25&#125;&#125;)  //先把年龄改成数字</span><br><span class="line">WriteResult(&#123; "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 &#125;)</span><br><span class="line">&gt; db.user.find().sort(&#123;age:1&#125;)  //按照年龄升序</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72a74a5c57c4ada08ab7"</span>) &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8effca4a5c57c4ada08ab9"</span>), <span class="attr">"user"</span> : <span class="string">"xiaoming"</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b72bf4a5c57c4ada08ab8"</span>), <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>, <span class="attr">"age"</span> : <span class="number">15</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8f66974a5c57c4ada08aba"</span>), <span class="attr">"uname"</span> : <span class="string">"zhangsan"</span>, <span class="attr">"age"</span> : <span class="number">25</span>, <span class="attr">"address"</span> : <span class="string">"beijing"</span> &#125;</span><br><span class="line">&#123; <span class="attr">"_id"</span> : ObjectId(<span class="string">"5c8b716e4a5c57c4ada08ab6"</span>), <span class="attr">"uname"</span> : <span class="string">"gaofeng"</span>, <span class="attr">"age"</span> : <span class="number">28</span>, <span class="attr">"address"</span> : <span class="string">"shanghai"</span> &#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/spring-uploadfile/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Spring结合uploadFile插件上传文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/java-top/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">日常积累</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+
+
+
+
+<section id="comments" class="duoshuo">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-mongodb" data-title="初识MongoDB" data-url="http://yoursite.com/mongodb/"></div>
+    <!-- 多说评论框 end -->
+
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:'xtuer'};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</section>
+
+<style>
+    #mask {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index:99999;
+        overflow: auto;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #toc-container {
+        width: 500px;
+        margin: 30px auto;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border: 6px solid rgba(0, 0, 0, 0.75);
+        border-radius: 2px;
+    }
+
+    #mask .toc li {
+        margin: 10px;
+    }
+
+    #mask .toc li a {
+        color: rgb(43, 43, 43);
+    }
+
+    #toc-button {
+        float: right;
+        margin-right: 28px;
+        color: #AAA;
+        text-decoration: none;
+    }
+    #toc-button:hover {
+        color: #999;
+    }
+
+    #access-counter {
+        color: #999;
+        font-size: 12px;
+    }
+</style>
+
+<!-- Toc -->
+<script type="text/javascript">
+$(document).ready(function() {
+    createMask();
+
+    $(document).keyup(function(e) {
+        if (e.keyCode == 49) {
+            $('#mask').toggle();
+        }
+    });
+
+    $(document).on('click', '#toc-button', function() {
+        $('#mask').toggle();
+    });
+
+    // 隐藏 Mask
+    $(document).on('click', '#mask', function() {
+        $('#mask').hide();
+    });
+
+    // 禁止 Toc 上的鼠标点击事件冒泡
+    $(document).on('click', '#toc-container', function(e) {
+        e.stopPropagation();
+        $('#mask').hide();
+    });
+});
+
+function createMask() {
+    var $mask = $('<div id="mask"><div id="toc-container"></div></div>');
+    var $toc = $('#toc');
+    $mask.find('#toc-container').append($toc);
+    $toc.show();
+    $mask.hide();
+    $('body').prepend($mask);
+}
+</script>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2020 冰人
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: false,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+
+<!--page counter part-->
+<script>
+function addCount(Counter) {
+    url = $('.article-date').attr('href').trim();
+    title = $('.article-title').text().trim();
+    var query = new AV.Query(Counter);
+    //use url as unique idnetfication
+    query.equalTo("url", url);
+    query.find({
+        success: function(results){
+            if(results.length > 0) {
+                var counter=results[0];
+                counter.fetchWhenSave(true); // get recent result
+                counter.increment("time");
+                counter.save();
+
+                var time  = counter.get("time");
+                $('#access-counter').text('访问 ' + time + ' 次');
+            } else {
+                var newcounter = new Counter();
+                newcounter.set("title", title);
+                newcounter.set("url", url);
+                newcounter.set("time", 1);
+                newcounter.save(null, {
+                    success: function(newcounter){
+                        //alert('New object created');
+                    },
+                    error: function(newcounter, error){
+                        alert('Failed to create');
+                    }
+                });
+
+                $('#access-counter').text('访问 1 次');
+            }
+        },
+        error: function(error){
+            //find null is not a error
+            alert('Error:'+error.code+" "+error.message);
+        }
+    });
+}
+
+$(document).ready(function() {
+    var Counter = AV.Object.extend("Counter");
+    //only increse visit counting when intering a page
+    if ($('.article-title').length == 1) {
+       addCount(Counter);
+    }
+
+    // Top 10
+    // var query = new AV.Query(Counter);
+    // query.descending("time");
+    // // the sum of popular posts
+    // query.limit(10);
+    // query.find({
+    //     success: function(results) {
+    //         for(var i=0; i<results.length; i++) {
+    //             var counter = results[i];
+    //             title = counter.get("title");
+    //             url   = counter.get("url");
+    //             time  = counter.get("time");
+    //             // add to the popularlist widget
+    //             showcontent = title+" ("+time+")";
+    //             $('.popularlist').append('<li><a href="'+url+'">'+showcontent+'</a></li>');
+    //         }
+    //     },
+    //     error: function(error){
+    //         alert("Error:"+error.code+" "+error.message);
+    //     }
+    // });
+});
+</script>
+
+  </div>
+</body>
+</html>
