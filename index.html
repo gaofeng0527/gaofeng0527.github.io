@@ -90,7 +90,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Index/" style="font-size: 10px;">Index</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javaweb/" style="font-size: 16.67px;">javaweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 16.67px;">security</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 20px;">springmvc</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/thymeleaf/" style="font-size: 16.67px;">thymeleaf</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a>
+						<a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Index/" style="font-size: 10px;">Index</a> <a href="/tags/fastDFS/" style="font-size: 10px;">fastDFS</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javaweb/" style="font-size: 16.67px;">javaweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 16.67px;">security</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 20px;">springmvc</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/thymeleaf/" style="font-size: 16.67px;">thymeleaf</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a>
 					</div>
 				</section>
 				
@@ -176,6 +176,73 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-fastdfs-build" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+        
+
+        
+            <a href="/fastdfs-build/" class="article-date">
+  	<time datetime="2020-02-27T02:41:22.000Z" itemprop="datePublished">2020-02-27</time>
+</a>
+        
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/fastdfs-build/">fastDFS分布式文件服务器入门</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="一-FastDFS介绍"><a href="#一-FastDFS介绍" class="headerlink" title="一.FastDFS介绍"></a>一.FastDFS介绍</h1><h2 id="1-1-FastDFS简介"><a href="#1-1-FastDFS简介" class="headerlink" title="1.1 FastDFS简介"></a>1.1 FastDFS简介</h2><p>​         FastDFS 开源的分布式文件系统，用纯C语言开发。只能通过专有API进行文件存取访问，不支持POSIX接口方式，不能mount使用。它的主要功能包括：文件存储，文件同步和文件访问，以及高容量和负载均衡。主要解决了海量数据存储问题，特别适合以中小文件（建议范围：4KB &lt; file_size &lt;500MB）为载体的在线服务。</p>
+<h2 id="1-2-FastDFS架构"><a href="#1-2-FastDFS架构" class="headerlink" title="1.2 FastDFS架构"></a>1.2 FastDFS架构</h2><p>FastDFS架构包括 Tracker server和Storage server。客户端请求Tracker server进行文件上传、下载，通过Trackerserver调度最终由Storage server完成文件上传和下载。</p>
+<p>FastDFS 系统有三个角色：跟踪服务器(Tracker Server)、存储服务器(Storage Server)和客户端(Client)。</p>
+<p>　　Tracker Server：跟踪服务器，主要做调度工作，起到均衡的作用；负责管理所有的 storage server和 group，每个 storage 在启动后会连接 Tracker，告知自己所属 group 等信息，并保持周期性心跳。通过Trackerserver在文件上传时可以根据一些策略找到Storageserver提供文件上传服务。</p>
+<p>　　Storage Server：存储服务器，主要提供容量和备份服务；以 group 为单位，每个 group 内可以有多台 storage server，数据互为备份。Storage server没有实现自己的文件系统而是利用操作系统 的文件系统来管理文件。</p>
+<p>　　Client：客户端，上传下载数据的服务器，也就是我们自己的项目所部署在的服务器。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fastDFS/">fastDFS</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/fastdfs-build/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-springboot-automake" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -785,71 +852,9 @@
 
 
   
-    <article id="post-chapter-two-for-vue" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/chapter-two-for-vue/" class="article-date">
-  	<time datetime="2018-11-06T01:36:48.000Z" itemprop="datePublished">2018-11-06</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/chapter-two-for-vue/">Vue中的计算属性和侦听器</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="计算属性"><a href="#计算属性" class="headerlink" title="计算属性"></a>计算属性</h1><p>当我们要显示一个需要依赖现有属性，通过逻辑运算得到的结果时，vue引入了计算属性的概念。计算属性的值依赖于现有属性，只有当现有属性发生改变的时候，才会重新计算计算属性的值（缓存）。所以，对于任何复杂的逻辑，都应当使用计算属性。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vue/">vue</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/chapter-two-for-vue/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>
