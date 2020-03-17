@@ -90,7 +90,7 @@
 				
 				<section class="switch-part switch-part1">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Index/" style="font-size: 10px;">Index</a> <a href="/tags/fastDFS/" style="font-size: 10px;">fastDFS</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javaweb/" style="font-size: 16.67px;">javaweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 16.67px;">security</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 20px;">springmvc</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/thymeleaf/" style="font-size: 16.67px;">thymeleaf</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a>
+						<a href="/tags/Git/" style="font-size: 16.67px;">Git</a> <a href="/tags/Gradle/" style="font-size: 10px;">Gradle</a> <a href="/tags/Index/" style="font-size: 10px;">Index</a> <a href="/tags/fastDFS/" style="font-size: 10px;">fastDFS</a> <a href="/tags/hexo/" style="font-size: 10px;">hexo</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javaweb/" style="font-size: 16.67px;">javaweb</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/mongoDB/" style="font-size: 10px;">mongoDB</a> <a href="/tags/mybatis/" style="font-size: 13.33px;">mybatis</a> <a href="/tags/redis/" style="font-size: 10px;">redis</a> <a href="/tags/security/" style="font-size: 16.67px;">security</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/springboot/" style="font-size: 10px;">springboot</a> <a href="/tags/springmvc/" style="font-size: 20px;">springmvc</a> <a href="/tags/springweb/" style="font-size: 10px;">springweb</a> <a href="/tags/test/" style="font-size: 10px;">test</a> <a href="/tags/thymeleaf/" style="font-size: 16.67px;">thymeleaf</a> <a href="/tags/vue/" style="font-size: 13.33px;">vue</a>
 					</div>
 				</section>
 				
@@ -176,6 +176,72 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-static-resource" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+        
+
+        
+            <a href="/static-resource/" class="article-date">
+  	<time datetime="2017-12-01T02:21:22.000Z" itemprop="datePublished">2017-12-01</time>
+</a>
+        
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/static-resource/">springmvc对静态资源的处理</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="开场白"><a href="#开场白" class="headerlink" title="开场白"></a>开场白</h1><p>不知道为啥，写笔记的时候总是喜欢写开场白，有点自言自语的感觉，哈哈哈。</p>
+<p>初学springmvc的时候，遇到一个坑，就是在页面引用<strong>js</strong>或者<strong>css</strong>文件的时候总是失败，后来上网查资料才明白了原因。</p>
+<p>在使用springmvc的时候，我们首先要在web.xml中配置<strong>DispatcherServlet</strong>，并且拦截所有URL请求</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">servlet</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springDispatcherServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>org.springframework.web.servlet.DispatcherServlet<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">init-param</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>contextConfigLocation<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>classpath:springmvc.xml<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">init-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">load-on-startup</span>&gt;</span>1<span class="tag">&lt;/<span class="name">load-on-startup</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>springDispatcherServlet<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这样的话.js、.css、.jpg等文件的请求也都被DispatcherServlet给拦截了，可是又没有相应的处理方法，因此也就访问不到了。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/static-resource/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-fileUpload" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -728,94 +794,6 @@
       
         <p class="article-more-link">
           <a  href="/spring-aop/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/hello-world/" class="article-date">
-  	<time datetime="2016-11-19T03:14:28.000Z" itemprop="datePublished">2016-11-19</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用 <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> 来搭建自己的个人静态博客:</p>
-<ol>
-<li>Markdown 写博客</li>
-<li>Hexo 生成 HTML</li>
-<li>Hexo 发布 HTML 到 Github Pages</li>
-</ol>
-<blockquote>
-<p>既然是静态博客，那么就没有后台了，留言功能可以使用第三方的服务，例如畅言。</p>
-</blockquote>
-<h2 id="Install-Node"><a href="#Install-Node" class="headerlink" title="Install Node"></a>Install Node</h2><p>Hexo 需要 Node</p>
-<ul>
-<li>Mac 安装 Node，可以使用 Homebrew 安装: <code>brew install node</code></li>
-<li>Windows 安装 Node，进入 <a href="https://nodejs.org/en/" target="_blank" rel="noopener">https://nodejs.org/en/</a> 下载安装</li>
-</ul>
-<blockquote>
-<p>Node 就是 Node.js</p>
-</blockquote>
-<h3 id="使用-Node-的淘宝镜像"><a href="#使用-Node-的淘宝镜像" class="headerlink" title="使用 Node 的淘宝镜像"></a>使用 Node 的淘宝镜像</h3><p>由于网络的问题，访问 Node 的默认仓库有可能会很慢，很多东西都下载不下来，可以使用淘宝的 Node 的镜像，命令行里执行</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</span><br></pre></td></tr></table></figure>
-<p>即可，具体可参考 <a href="http://npm.taobao.org/" target="_blank" rel="noopener">http://npm.taobao.org</a></p>
-<h2 id="Install-Github-Client"><a href="#Install-Github-Client" class="headerlink" title="Install Github Client"></a>Install Github Client</h2><p>Hexo 和 Github 一起使用就可以搭建一个免费的博客网站</p>
-<ul>
-<li>如果没有安装 Git，需要安装一下</li>
-<li>到 <a href="https://desktop.github.com/" target="_blank" rel="noopener">https://desktop.github.com</a> 下载 Github 客户端</li>
-</ul>
-<h2 id="Install-Hexo-and-initialize-Pages"><a href="#Install-Hexo-and-initialize-Pages" class="headerlink" title="Install Hexo and initialize Pages"></a>Install Hexo and initialize Pages</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ npm install hexo-cli -g</span><br><span class="line">$ hexo init Blog</span><br><span class="line">$ cd Blog</span><br><span class="line">$ npm install</span><br><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/hello-world/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>

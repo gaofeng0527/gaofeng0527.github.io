@@ -4,15 +4,20 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>冰人</title>
+  <title>Centos7 搭建yapi接口管理工具 | 冰人</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="冰人">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="简介​    Yapi是去哪网开源的一款api管理应用。当前前后端分离开发大势所趋，为减少前后端工程师的沟通障碍，避免不必要的争吵，建议搭建这么一套api管理工具。后端把开发好的接口信息整理到工具中，前端调用统一参阅api管理文档。 ​    注意：如果后端接口修改了，一定要及时更新。 参考：YApi 安装安装yapi，需要提前安装mongodb，nodejs（6.X以上），最好把git也安装上">
+<meta name="keywords" content="springweb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Centos7 搭建yapi接口管理工具">
+<meta property="og:url" content="http://yoursite.com/yapi/index.html">
 <meta property="og:site_name" content="冰人">
+<meta property="og:description" content="简介​    Yapi是去哪网开源的一款api管理应用。当前前后端分离开发大势所趋，为减少前后端工程师的沟通障碍，避免不必要的争吵，建议搭建这么一套api管理工具。后端把开发好的接口信息整理到工具中，前端调用统一参阅api管理文档。 ​    注意：如果后端接口修改了，一定要及时更新。 参考：YApi 安装安装yapi，需要提前安装mongodb，nodejs（6.X以上），最好把git也安装上">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2020-03-17T12:59:59.022Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="冰人">
+<meta name="twitter:title" content="Centos7 搭建yapi接口管理工具">
+<meta name="twitter:description" content="简介​    Yapi是去哪网开源的一款api管理应用。当前前后端分离开发大势所趋，为减少前后端工程师的沟通障碍，避免不必要的争吵，建议搭建这么一套api管理工具。后端把开发好的接口信息整理到工具中，前端调用统一参阅api管理文档。 ​    注意：如果后端接口修改了，一定要及时更新。 参考：YApi 安装安装yapi，需要提前安装mongodb，nodejs（6.X以上），最好把git也安装上">
   
     <link rel="alternative" href="/atom.xml" title="冰人" type="application/atom+xml">
   
@@ -175,17 +180,17 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
-  
-    <article id="post-yapi" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-yapi" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
         
-
-        
-            <a href="/yapi/" class="article-date">
+            <span id="access-counter"></span>
+            <a href="javascript: void(0)" id="toc-button">列表</a>
+            <div style="display:none"><a href="/yapi/" class="article-date">
   	<time datetime="2020-03-17T08:43:02.000Z" itemprop="datePublished">2020-03-17</time>
-</a>
+</a></div>
+        
+
         
     </div>
   
@@ -197,16 +202,32 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/yapi/">Centos7 搭建yapi接口管理工具</a>
+    <h1 class="article-title" itemprop="name">
+      Centos7 搭建yapi接口管理工具
     </h1>
   
 
       </header>
       
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springweb/">springweb</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
     
     <div class="article-entry" itemprop="articleBody">
       
+        
+        <div id="toc" class="article-toc" style="display: none;">
+          <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#简介"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安装"><span class="toc-number">2.</span> <span class="toc-text">安装</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#安装nodejs"><span class="toc-number">2.1.</span> <span class="toc-text">安装nodejs</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装git"><span class="toc-number">2.2.</span> <span class="toc-text">安装git</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装mongodb"><span class="toc-number">2.3.</span> <span class="toc-text">安装mongodb</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装yapi"><span class="toc-number">2.4.</span> <span class="toc-text">安装yapi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#安装pm2"><span class="toc-number">2.5.</span> <span class="toc-text">安装pm2</span></a></li></ol></li></ol>
+          <!-- <hr/> -->
+        </div>
         
         <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>​    Yapi是去哪网开源的一款api管理应用。当前前后端分离开发大势所趋，为减少前后端工程师的沟通障碍，避免不必要的争吵，建议搭建这么一套api管理工具。后端把开发好的接口信息整理到工具中，前端调用统一参阅api管理文档。</p>
 <p>​    注意：如果后端接口修改了，一定要及时更新。</p>
@@ -263,20 +284,19 @@
       
     </div>
     
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springweb/">springweb</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/fastdfs-build/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">fastDFS分布式文件服务器入门</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
   
 </article>
 
@@ -285,614 +305,109 @@
 
 
 
+<section id="comments" class="duoshuo">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="post-yapi" data-title="Centos7 搭建yapi接口管理工具" data-url="http://yoursite.com/yapi/"></div>
+    <!-- 多说评论框 end -->
+
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+        var duoshuoQuery = {short_name:'xtuer'};
+        (function() {
+            var ds = document.createElement('script');
+            ds.type = 'text/javascript';ds.async = true;
+            ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+            ds.charset = 'UTF-8';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(ds);
+        })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</section>
+
+<style>
+    #mask {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index:99999;
+        overflow: auto;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    #toc-container {
+        width: 500px;
+        margin: 30px auto;
+        background: rgba(255, 255, 255, 0.9);
+        padding: 10px 20px;
+        border: 6px solid rgba(0, 0, 0, 0.75);
+        border-radius: 2px;
+    }
+
+    #mask .toc li {
+        margin: 10px;
+    }
+
+    #mask .toc li a {
+        color: rgb(43, 43, 43);
+    }
+
+    #toc-button {
+        float: right;
+        margin-right: 28px;
+        color: #AAA;
+        text-decoration: none;
+    }
+    #toc-button:hover {
+        color: #999;
+    }
+
+    #access-counter {
+        color: #999;
+        font-size: 12px;
+    }
+</style>
+
+<!-- Toc -->
+<script type="text/javascript">
+$(document).ready(function() {
+    createMask();
+
+    $(document).keyup(function(e) {
+        if (e.keyCode == 49) {
+            $('#mask').toggle();
+        }
+    });
+
+    $(document).on('click', '#toc-button', function() {
+        $('#mask').toggle();
+    });
+
+    // 隐藏 Mask
+    $(document).on('click', '#mask', function() {
+        $('#mask').hide();
+    });
+
+    // 禁止 Toc 上的鼠标点击事件冒泡
+    $(document).on('click', '#toc-container', function(e) {
+        e.stopPropagation();
+        $('#mask').hide();
+    });
+});
+
+function createMask() {
+    var $mask = $('<div id="mask"><div id="toc-container"></div></div>');
+    var $toc = $('#toc');
+    $mask.find('#toc-container').append($toc);
+    $toc.show();
+    $mask.hide();
+    $('body').prepend($mask);
+}
+</script>
 
-  
-    <article id="post-fastdfs-build" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/fastdfs-build/" class="article-date">
-  	<time datetime="2020-02-27T02:41:22.000Z" itemprop="datePublished">2020-02-27</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/fastdfs-build/">fastDFS分布式文件服务器入门</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="一-FastDFS介绍"><a href="#一-FastDFS介绍" class="headerlink" title="一.FastDFS介绍"></a>一.FastDFS介绍</h1><h2 id="1-1-FastDFS简介"><a href="#1-1-FastDFS简介" class="headerlink" title="1.1 FastDFS简介"></a>1.1 FastDFS简介</h2><p>​         FastDFS 开源的分布式文件系统，用纯C语言开发。只能通过专有API进行文件存取访问，不支持POSIX接口方式，不能mount使用。它的主要功能包括：文件存储，文件同步和文件访问，以及高容量和负载均衡。主要解决了海量数据存储问题，特别适合以中小文件（建议范围：4KB &lt; file_size &lt;500MB）为载体的在线服务。</p>
-<h2 id="1-2-FastDFS架构"><a href="#1-2-FastDFS架构" class="headerlink" title="1.2 FastDFS架构"></a>1.2 FastDFS架构</h2><p>FastDFS架构包括 Tracker server和Storage server。客户端请求Tracker server进行文件上传、下载，通过Trackerserver调度最终由Storage server完成文件上传和下载。</p>
-<p>FastDFS 系统有三个角色：跟踪服务器(Tracker Server)、存储服务器(Storage Server)和客户端(Client)。</p>
-<p>　　Tracker Server：跟踪服务器，主要做调度工作，起到均衡的作用；负责管理所有的 storage server和 group，每个 storage 在启动后会连接 Tracker，告知自己所属 group 等信息，并保持周期性心跳。通过Trackerserver在文件上传时可以根据一些策略找到Storageserver提供文件上传服务。</p>
-<p>　　Storage Server：存储服务器，主要提供容量和备份服务；以 group 为单位，每个 group 内可以有多台 storage server，数据互为备份。Storage server没有实现自己的文件系统而是利用操作系统 的文件系统来管理文件。</p>
-<p>　　Client：客户端，上传下载数据的服务器，也就是我们自己的项目所部署在的服务器。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/fastDFS/">fastDFS</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/fastdfs-build/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-springboot-automake" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/springboot-automake/" class="article-date">
-  	<time datetime="2020-02-13T03:24:41.000Z" itemprop="datePublished">2020-02-13</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/springboot-automake/">IDEA springboot 修改后自动编译部署</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-        <h1 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h1><p>​    在开发阶段，会经常修改代码，每次修改后都要重启应用才能看到效果，非常麻烦。</p>
-<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><ol>
-<li><p>引入依赖</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-devtools<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">optional</span>&gt;</span>true<span class="tag">&lt;/<span class="name">optional</span>&gt;</span> <span class="comment">&lt;!-- 为true的时候才会生效 --&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- 引入插件 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">fork</span>&gt;</span>true<span class="tag">&lt;/<span class="name">fork</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">addResources</span>&gt;</span>true<span class="tag">&lt;/<span class="name">addResources</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<ol start="2">
-<li><p>修改IDEA配置</p>
-<p>1.打开Settings(Ctrl+Shift+A)—》Build,Execution,Deployment —&gt;compiler  </p>
-<p>2.勾选 Build project automatically </p>
-<p>3.apply</p>
-</li>
-<li><p>重启IDEA</p>
-</li>
-<li><p>测试</p>
-</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springboot/">springboot</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-prevent-xss" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/prevent-xss/" class="article-date">
-  	<time datetime="2019-05-31T08:10:09.000Z" itemprop="datePublished">2019-05-31</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/prevent-xss/">防止XSS攻击</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h1><p>XSS攻击全称跨站脚本攻击，是一种在<code>web</code>应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其他用户使用的页面中。例如：不法用户在评论某条博客时，植入类似<code>&lt;script&gt;alert(&#39;一个大傻瓜&#39;)&lt;/script&gt;</code>可执行的js脚本保存到服务器，当在显示的时候，就会出现弹出框，这是最简单的XSS攻击。</p>
-<blockquote>
-<p>   服务器处理富文本编辑器提交的内容时, 因排版的需求不能对 HTML 标签进行转义, 但为了防止 XSS 攻击, 又必须过滤掉其中的 JS 代码, 在 Java 中使用 Jsoup 正好可以满足此要求</p>
-</blockquote>
-<p><a href="https://www.jianshu.com/p/32abc12a175a" target="_blank" rel="noopener">参考</a></p>
-<h1 id="解决思路"><a href="#解决思路" class="headerlink" title="解决思路"></a>解决思路</h1><p>1.在前端页面，可以通过js过滤一下特殊字符。</p>
-<p>2.在服务器端通过过滤器，拦截请求，过滤参数，清除危险字符</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javaweb/">javaweb</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/prevent-xss/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-spring-uploadfile" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/spring-uploadfile/" class="article-date">
-  	<time datetime="2019-05-24T05:49:12.000Z" itemprop="datePublished">2019-05-24</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/spring-uploadfile/">Spring结合uploadFile插件上传文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>今天整理了一个上传文件的基于Jquery开发的插件。<a href="http://www.jq22.com/jquery-info13450" target="_blank" rel="noopener">参考</a></p>
-<p>提供单，多图片、文件上传；进度条支持；同步，异步上传等。</p>
-<h1 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h1><p>下载插件包，把文件复制到工程WEB-INF目录下</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/springmvc/">springmvc</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/spring-uploadfile/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-mongodb" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/mongodb/" class="article-date">
-  	<time datetime="2019-03-15T08:41:33.000Z" itemprop="datePublished">2019-03-15</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/mongodb/">初识MongoDB</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="MongoDB"><a href="#MongoDB" class="headerlink" title="MongoDB"></a>MongoDB</h1><p>非关系型数据库；分布式文档存储数据库。内容大部分以json的格式存储</p>
-<p>在<code>MongoDB</code>中基本概念是 文档（document）、集合(collection)、数据库(database)、数据字段\域（field）</p>
-<p>一个<code>MongoDB</code>中可以创建多个数据库</p>
-<p>admin： 从权限的角度来看，这是”root”数据库。要是将一个用户添加到这个数据库，这个用户自动继承所有数据库的权限。一些特定的服务器端命令也只能从这个数据库运行，比如列出所有的数据库或者关闭服务器。<br>local: 这个数据永远不会被复制，可以用来存储限于本地单台服务器的任意集合<br>config: 当Mongo用于分片设置时，config数据库在内部使用，用于保存分片的相关信息。</p>
-<p>MongoDB 的文档不需要设置相同的字段，并且相同的字段不需要相同的数据类型，这与关系型数据库有很大的区别，也是 MongoDB 非常突出的特点。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongoDB/">mongoDB</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/mongodb/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-java-top" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/java-top/" class="article-date">
-  	<time datetime="2019-02-15T03:52:32.000Z" itemprop="datePublished">2019-02-15</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/java-top/">日常积累</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="比较Long类型-20190215"><a href="#比较Long类型-20190215" class="headerlink" title="比较Long类型 20190215"></a>比较Long类型 20190215</h1><p>平时比较数字类型时习惯直接用<code>==</code>来比较，有一次发现两个Long类型的数字直接用<code>==</code>比较没有达到预期效果，仔细一想Long类型是long的封装类型，<code>==</code>比较是比较的引用地址，因此值是一样的，却返回false。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Long l1 = <span class="keyword">new</span> Long(<span class="number">10</span>);</span><br><span class="line">Long l2 = <span class="keyword">new</span> Long(<span class="number">10</span>);</span><br><span class="line">System.out.println(l1 == l2);<span class="comment">//false</span></span><br><span class="line">System.out.println(l1.longValue() == l2.longValue());<span class="comment">//true</span></span><br></pre></td></tr></table></figure>
-<p>上面代码也可以看出：long类型是java中的基本数据类型，可以用<code>==</code>直接比较</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/java-top/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-git-chapter-four" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/git-chapter-four/" class="article-date">
-  	<time datetime="2018-11-23T08:05:54.000Z" itemprop="datePublished">2018-11-23</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/git-chapter-four/">Git（分支管理）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="分支管理"><a href="#分支管理" class="headerlink" title="分支管理"></a>分支管理</h1><p>分支就像两条平行的线，互不干扰；在实际开发过程中，大家都是在分支上工作，互不干扰，而且每次修改后都可以在本地提交，而不用担心代码丢失。在需要时把分支合并，就可以完成协助开发了。</p>
-<p>Git的分支是与众不同的，无论创建、切换和删除分支，Git在1秒钟之内就能完成！无论你的版本库是1个文件还是1万个文件。</p>
-<h1 id="分支工作原理"><a href="#分支工作原理" class="headerlink" title="分支工作原理"></a>分支工作原理</h1><p>在Git仓库创建起始，会默认创建一个<code>master</code>分支。前面介绍版本回退的时候，引入了指针（<code>HEAD</code>）的概念，Git之所以与其他版本管理工具不同，一是因为Git是分布式管理工具，还一个是引入了指针的概念。其实我们在commit的时候，只是在移动指针，所以才会非常快。</p>
-<p>严格来说<code>HEAD</code>不是指向提交的，而是指向<code>master</code>分支的，分支指向了提交，所以<code>HEAD</code>指向当前 分支如图：<img src="https://cdn.liaoxuefeng.com/cdn/files/attachments/0013849087937492135fbf4bbd24dfcbc18349a8a59d36d000/0" alt="git-br-initial"></p>
-<p>每一次的修改提交，都被Git记录为一个节点，形成一个时间线，而每次提交当前分支就会指向最新的一次提交，而指针也指向当前分支。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/git-chapter-four/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-git-chapter-three" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/git-chapter-three/" class="article-date">
-  	<time datetime="2018-11-23T03:09:31.000Z" itemprop="datePublished">2018-11-23</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/git-chapter-three/">Git（三）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="创建SSH-Key"><a href="#创建SSH-Key" class="headerlink" title="创建SSH Key"></a>创建SSH Key</h1><p>前面已经学习了Git在本地的基础操作，之前也说过，Git是分布式版本管理系统，如果只是在本地操作，怎么能叫分布式呢。</p>
-<p>实际情况是这样，找一台电脑充当服务器的角色，每天24小时开机，其他每个人都从这个“服务器”仓库克隆一份到自己的电脑上，并且各自把各自的提交推送到服务器仓库里，也从服务器仓库中拉取别人的提交</p>
-<p>有个叫<a href="https://github.com/" target="_blank" rel="noopener">GitHub</a>的神奇的网站，从名字就可以看出，这个网站就是提供Git仓库托管服务的，所以，只要注册一个GitHub账号，就可以免费获得Git远程仓库。</p>
-<p>本地仓库和远程Git仓库是通过SSH传输的，因此要在github帐号配置本地公钥。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/git-chapter-three/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-git-chapter-two" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-        
-
-        
-            <a href="/git-chapter-two/" class="article-date">
-  	<time datetime="2018-11-19T08:53:08.000Z" itemprop="datePublished">2018-11-19</time>
-</a>
-        
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/git-chapter-two/">Git（二）</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>前面一篇已经简单认识了Git，并且学习了8个基础的操作命令，今天继续学习</p>
-<h1 id="工作区和暂存区"><a href="#工作区和暂存区" class="headerlink" title="工作区和暂存区"></a>工作区和暂存区</h1><p>Git和其他版本管理系统的区别就是，Git有暂存区的概念。</p>
-<p>工作区：其实就是我们电脑上能看到的目录，比如之前创建的learngit目录。</p>
-<p>版本库：工作区文件夹内有一个隐藏的.git文件夹，这个就是Git的版本库了。版本库中重要组成部分<code>stage</code>（或者叫<code>index</code>）的暂存区，还有创建的第一个分支<code>master</code>，以及指向<code>master</code>的指针<code>HEAD</code>（Git切换版本之所以快，是因为切换版本的时候，只是移动了该指针）。</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/git-chapter-two/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-  
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
-    </nav>
-  
 </div>
       <footer id="footer">
   <div class="outer">
@@ -916,8 +431,8 @@
 		fancybox: true,
 		mathjax: true,
 		animate: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
